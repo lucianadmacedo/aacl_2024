@@ -9,12 +9,11 @@ df[['Field', 'journal', 'Section']] = df['filename'].str.split('.', expand=True)
 # Step 3: Calculate the total number of sections within each field
 total_sections_per_field = df.groupby('Field')['Section'].nunique().reset_index(name='NumSectionsTotal')
 
-# Step 3: Group the DataFrame by field of study and section
+# Step 4: Group the DataFrame by field of study and section
 grouped_df = df.groupby(['Field', 'Section'])
 
-# Step 4: Calculate the desired statistics for each group
+# Step 5: Calculate the desired statistics for each group
 result_df = grouped_df['ttr'].agg(['sum', 'mean', 'std'])
-
 
 # Step 6: Create a new DataFrame to store the results
 result_df.reset_index(inplace=True)
