@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Step 1: Read the spreadsheet into a pandas DataFrame
-df = pd.read_excel("/Users/lucianadiasdemacedo/Documents/cnpq_inpact_humanities/teste_planilha.xlsx")
+df = pd.read_excel("/Users/lucianadiasdemacedo/Documents/cnpq_inpact_humanities/teste_planilha_input.xlsx")
 
 # Step 2: Extract relevant information from the file names
 df[['Field', 'journal', 'Section']] = df['filename'].str.split('.', expand=True).iloc[:, :3]
@@ -13,7 +13,7 @@ total_sections_per_field = df.groupby('Field')['Section'].nunique().reset_index(
 grouped_df = df.groupby(['Field', 'Section'])
 
 # Step 5: Calculate the desired statistics for each group
-result_df = grouped_df['ttr'].agg(['sum', 'mean', 'std'])
+result_df = grouped_df['pasttnse'].agg(['sum', 'mean', 'std'])
 
 # Step 6: Create a new DataFrame to store the results
 result_df.reset_index(inplace=True)
