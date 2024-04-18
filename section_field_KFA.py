@@ -49,6 +49,7 @@ for (field_target, section_target), data_target in grouped_by_field_section:
     # Round MeanDiff, Cohen's d and pooled standard deviation to 4 decimal places
     mean_diff = np.round(mean_diff, 4)
     pooled_std_dev = np.round(pooled_std_dev, 4)
+    cohen_d = np.round(cohen_d, 4)
 
     # Create a DataFrame containing the means, pooled standard deviation, MeanDiff, Cohen's d, and effect size
     result_df = pd.DataFrame({'Field_Target': [field_target] * len(means_target),
@@ -61,6 +62,9 @@ for (field_target, section_target), data_target in grouped_by_field_section:
                               'MeanDiff': mean_diff.values,
                               'CohenD': cohen_d.values,
                               'Effect_Size': effect_size})
+
+    # Sort the DataFrame by 'CohenD' column in descending order
+    result_df.sort_values(by='CohenD', ascending=False, inplace=True)
 
     # Save the result to a new CSV file
     result_df.to_csv(f"{field_target}_{section_target}_vs_all_other_{section_target}_sections.csv", index=False)
